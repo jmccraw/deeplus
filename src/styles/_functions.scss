@@ -1,0 +1,31 @@
+/**
+ * Does maths on the pixels value to return a new value
+ * Set up as a result of this article from Simon Williams:
+ * https://engageinteractive.co.uk/blog/em-vs-rem-vs-px
+ * @param {Number} $pixels The pixel value to convert
+ * @return {Int}
+ */
+@function px-maths($pixels) {
+  $new-value: $pixels / 16;
+  @return $new-value;
+}
+
+/**
+ * Change the pixel value to rems
+ * @param {Number} $pixels The pixel size to convert
+ * @return {CSS value}
+ */
+ @function px-to-rem($pixels) {
+  $rem-value: px-maths($pixels);
+  @return $rem-value + rem;
+}
+
+/**
+ * Change the pixel value to ems
+ * @param {Number} $pixels The pixel size to convert
+ * @return {CSS value}
+ */
+@function px-to-em($pixels) {
+  $em-value: px-maths($pixels);
+  @return $em-value + em;
+}
