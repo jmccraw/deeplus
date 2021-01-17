@@ -1,9 +1,7 @@
 
 type Coords = {
-  x: number,
-  xOffset: number,
-  y: number,
-  yOffset: number
+  x: number
+  y: number
 };
 
 /**
@@ -12,6 +10,7 @@ type Coords = {
  */
 class Nav {
   navBoard: Array<Array<HTMLElement>>;
+  offsets: Array<number>;
   currItem: Coords;
   _collectionContainer: HTMLElement;
   _collections: NodeListOf<HTMLElement>;
@@ -21,11 +20,10 @@ class Nav {
    */
   constructor() {
     this.navBoard = [];
+    this.offsets = [];
     this.currItem = {
       x: 0,
-      xOffset: 0,
       y: 0,
-      yOffset: 0
     };
     this._collectionContainer = document.querySelector( '.deeplus__container' );
     this._collections;
@@ -33,13 +31,13 @@ class Nav {
 
   /**
    * Shifts over the current items and adjusts the xOffset
-   * @param {Number} newX The newX to shift
    */
-  shiftBoardItems( newX: number ) {
+  shiftBoardItems() {
+    const y: number = this.currItem.y;
 
     // Shift the collection based the newX divided by 5, the number of visible tiles, times 90,
     // the width of the tile collection
-    this._collections[this.currItem.y].style.transform = `translate3d(-${newX / 5 * 90}vw, 0, 0)`;
+    this._collections[y].style.transform = `translate3d(-${this.offsets[y] * 90}vw, 0, 0)`;
   }
 
   /**
@@ -52,6 +50,27 @@ class Nav {
     // Would need to better calculate this for more elements so as to never have to worry about
     // shifting too little. But since there are only around four visible collections, this should be fine
     this._collectionContainer.style.transform = `translate3d(0, -${newY * 13 }vh, 0)`;
+  }
+
+  /**
+   * Adjusts the x-axis offset when moving between Collections because
+   * the current grid layout of one could be several pages deep compared
+   * to others in the group
+   * @param {Number} newY The newY we're moving into
+   */
+  adjustXOffset( newY: number ) {
+    const y: number = this.currItem.y;
+    const currOffset: number = this.offsets[y];
+    const newOffset: number = this.offsets[newY];
+
+    // If the new offset is greater than the current offset,
+    // then add some to the current x to offset the difference,
+    // else, do the opposite
+    if ( currOffset < newOffset ) {
+      this.currItem.x += ( newOffset - currOffset ) * 5;
+    } else if ( currOffset > newOffset ) {
+      this.currItem.x -= ( currOffset - newOffset ) * 5;
+    }
   }
 
   /**
@@ -69,10 +88,9 @@ class Nav {
     const y: number = this.currItem.y;
 
     // Check if new values trigger a board shift
-    if ( 0 !== x && 0 === x % 5 && this.currItem.xOffset !== x ) {
-      this.currItem.xOffset = x;
-      this.currItem.yOffset = y;
-      this.shiftBoardItems( x );
+    if ( 0 !== x && this.offsets[y] !== Math.floor( x / 5 ) ) {
+      this.offsets[y] = Math.floor( x / 5 );
+      this.shiftBoardItems();
     }
 
     // Shift the y-axis so the current content is always in view at roughly the same location
@@ -101,6 +119,7 @@ class Nav {
   setNewY( newY: number ) {
     if ( 0 <= newY && this.navBoard.length - 1 >= newY ) {
       this.unhighlightCurrentItem();
+      this.adjustXOffset( newY );
       this.currItem.y = newY;
       this.updateCurrItem();
     }
@@ -157,7 +176,11 @@ class Nav {
     self._collections.forEach( ( _collection: HTMLElement, index: number ) => {
       const _items: NodeListOf<HTMLElement> = _collection.querySelectorAll( '.item' );
 
+      // Set initial navBoard to empty array for the new Items we get in next step
       self.navBoard[index]= [];
+
+      // Set initial offsets to 0
+      self.offsets[index] = 0;
 
       _items.forEach( ( _item: HTMLElement, itemIndex: number ) => {
         self.navBoard[index][itemIndex] = _item;
