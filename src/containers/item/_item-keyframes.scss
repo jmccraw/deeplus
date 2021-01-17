@@ -1,0 +1,107 @@
+@keyframes to-left {
+  0% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-left-color: $nav-highlight;
+  }
+  50% {
+    box-shadow:
+      -4px 0 6px $nav-highlight-active,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-left-color: $nav-highlight-active;
+  }
+  100% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-left-color: $nav-highlight;
+  }
+}
+
+@keyframes to-right {
+  0% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-right-color: $nav-highlight;
+  }
+  50% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight-active,
+      0 4px 6px $nav-highlight;
+    // border-right-color: $nav-highlight-active;
+  }
+  100% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-right-color: $nav-highlight;
+  }
+}
+
+@keyframes to-top {
+  0% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-top-color: $nav-highlight;
+  }
+  50% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight-active,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-top-color: $nav-highlight-active;
+  }
+  100% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-top-color: $nav-highlight;
+  }
+}
+
+@keyframes to-bottom {
+  0% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-bottom-color: $nav-highlight;
+  }
+  50% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight-active;
+    // border-bottom-color: $nav-highlight-active;
+  }
+  100% {
+    box-shadow:
+      -4px 0 6px $nav-highlight,
+      0 -4px 6px $nav-highlight,
+      4px 0 6px $nav-highlight,
+      0 4px 6px $nav-highlight;
+    // border-bottom-color: $nav-highlight;
+  }
+}
