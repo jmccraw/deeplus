@@ -1,5 +1,6 @@
 import initTemplates from '../templates';
 import { DeePlusAPI } from '../constants/feed';
+import { setLoadingErrorMessage } from '../components/loading';
 let deePlusData: object = {};
 
 /**
@@ -39,9 +40,10 @@ function setHomepageAPI( url: string, callback: Function ) {
       }
     } )
     .catch( ( err: Error ) => {
+      const message: string = `Something bad happened: ${err}`;
 
-      // TODO Add some kind of visual error response
-      window.console.error( `Something bad happened: ${err}` );
+      window.console.error( message );
+      setLoadingErrorMessage( message );
     } );
 }
 
