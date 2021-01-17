@@ -77,13 +77,15 @@ class Nav {
    * Unhighlight the currently selected item
    */
   unhighlightCurrentItem() {
-    this.navBoard[this.currItem.y][this.currItem.x].classList.remove( 'is-highlighted' );
+    const classes: Array<string> = [ 'is-highlighted', 'is-left', 'is-right', 'is-up', 'is-down', 'is-none' ];
+    this.navBoard[this.currItem.y][this.currItem.x].classList.remove( ...classes );
   }
 
   /**
    * Updates the current highlighted item to the latest values
+   * @param {String} direction The direction of the nav movement
    */
-  updateCurrItem() {
+  updateCurrItem( direction: string ) {
     const x: number = this.currItem.x;
     const y: number = this.currItem.y;
 
@@ -96,32 +98,33 @@ class Nav {
     // Shift the y-axis so the current content is always in view at roughly the same location
     this.shiftBoardCollection( y );
 
-    // TODO FIXME Some modulo that gets the offset of the current position for figuring out the place in the navBoard
-    this.navBoard[y][x].classList.add( 'is-highlighted' );
+    this.navBoard[y][x].classList.add( 'is-highlighted', `is-${direction}` );
   }
 
   /**
    * Sets a new x-coordinate, if applicable, and updates the current highlight
    * @param {Number} newX The new x-coordinate we want to set to
+   * @param {String} direction The direction of the movement
    */
-  setNewX( newX: number ) {
+  setNewX( newX: number, direction: string ) {
     if ( 0 <= newX && this.navBoard[this.currItem.y].length - 1 >= newX ) {
       this.unhighlightCurrentItem();
       this.currItem.x = newX;
-      this.updateCurrItem();
+      this.updateCurrItem( direction );
     }
   }
 
   /**
-   * Sets the
+   * Sets the new y-coordinate and adjusts the x-offset when going into a new Collection
    * @param {Number} newY The new y-coordinate we want to set to
+   * @param {String} direction The direction of the movement
    */
-  setNewY( newY: number ) {
+  setNewY( newY: number, direction: string ) {
     if ( 0 <= newY && this.navBoard.length - 1 >= newY ) {
       this.unhighlightCurrentItem();
       this.adjustXOffset( newY );
       this.currItem.y = newY;
-      this.updateCurrItem();
+      this.updateCurrItem( direction );
     }
   }
 
@@ -133,26 +136,31 @@ class Nav {
     const self = this;
     const keyPress: number = event.keyCode;
 
+    // Check for arrow key presses or WASD
     switch ( keyPress ) {
       case 38:
-        window.console.log( 'UP' );
-        self.setNewY( self.currItem.y - 1 );
+      case 87:
+        self.setNewY( self.currItem.y - 1, 'up' );
         break;
       case 40:
-        window.console.log( 'DOWN' );
-        self.setNewY( self.currItem.y + 1 );
+      case 83:
+        self.setNewY( self.currItem.y + 1, 'down' );
         break;
       case 37:
-        window.console.log( 'LEFT' );
-        self.setNewX( self.currItem.x - 1 );
+      case 65:
+        self.setNewX( self.currItem.x - 1, 'left' );
         break;
       case 39:
-        window.console.log( 'RIGHT' );
-        self.setNewX( self.currItem.x + 1 );
+      case 68:
+        self.setNewX( self.currItem.x + 1, 'right' );
         break;
+
+      // Where we would add modal activation to display playback information for this item
       case 32:
         window.console.log( 'SPACE' );
         break;
+
+      // Where we would add the ability to close the modal
       case 27:
         window.console.log( 'ESC' );
         break;
@@ -187,7 +195,7 @@ class Nav {
       } );
     } );
 
-    self.updateCurrItem();
+    self.updateCurrItem( 'none' );
   }
 
   /**
