@@ -1,3 +1,4 @@
+import { setLoadingComplete } from '../components/loading';
 const _mainContainer: HTMLElement = document.querySelector( '.deeplus__container' );
 const _collectionTemplate: HTMLElement = document.getElementById( 'collection' );
 const _itemTemplate: HTMLElement = document.getElementById( 'item' );
@@ -12,7 +13,6 @@ class TemplateMaker {
 
   /**
    * Create a TemplateMaker constructor with the data to use
-   * TODO Needs to clear this data object once the collection's contents are created
    * Built out like this in case we make it to the Refs collection lazy loading content section
    * @param {Array} data The data to construct this particular series of templates with
    */
@@ -22,6 +22,17 @@ class TemplateMaker {
     this.currCollection = 0;
     this._collection;
     this._item;
+  }
+
+  /**
+   * Frees up the memory for these stored variables
+   */
+  freeUpVariables() {
+    this.data.length = 0;
+    this._frag = null;
+    this.currCollection = 0;
+    this._collection = null;
+    this._item = null;
   }
 
   /**
@@ -138,6 +149,8 @@ class TemplateMaker {
 
     _mainContainer.appendChild( self._frag );
     self.dispatchTemplateUpdate();
+    self.freeUpVariables();
+    setLoadingComplete();
   }
 
   init() {
