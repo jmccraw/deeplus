@@ -1,3 +1,4 @@
+import initNav from './components/nav';
 import initContainers from './containers';
 
 // TODO FIXME See if need any globals
@@ -7,7 +8,9 @@ import initContainers from './containers';
 //   }
 // }
 
+
 const App = () => {
+  initNav();
   initContainers();
 };
 
