@@ -1,6 +1,8 @@
 # DeePlus
 A study in replicating an OTT experience based on the Disney+ browse view.
-* [Link TK](#)
+* [DeePlus](http://www.justinmccraw.com/test/espn/deeplus/) (Password protected)
+
+Best viewed in 720p (1280x720 screen) in Google Chrome.
 
 ## Technical Details
 Project uses ES5+ features, with TypeScript support and Babel transpiling, along with Sass for CSS and Handlebars for HTML templating.
@@ -23,3 +25,9 @@ $ npm run start
 ```
 
 This will start a dev server on [http://localhost:8080/](http://localhost:8080/) with hot reloading.
+
+To build the project, run:
+
+```bash
+$ npm run build:prod
+```
