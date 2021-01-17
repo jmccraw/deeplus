@@ -121,7 +121,7 @@ class TemplateMaker {
 
     _set.querySelector( '.header__hed' ).innerHTML = title;
 
-    window.console.log( 'Current Set: ', currSet, index );
+    // window.console.log( 'Current Set: ', currSet, index );
 
     currSet.items.forEach( ( item: object ) => {
       _container.appendChild( this.getItem( item ) );
