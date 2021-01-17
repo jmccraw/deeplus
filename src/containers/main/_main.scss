@@ -4,6 +4,16 @@
   height: 100vh;
   overflow: hidden;
   width: 100vw;
+
+  &::after {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.01), $black);
+    content: '';
+    right: 0;
+    top: 0;
+    width: 7vw;
+    height: 100%;
+    position: absolute;
+  }
 }
 
 .deeplus__container {
