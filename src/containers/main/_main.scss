@@ -1,1 +1,14 @@
 // Composing All Components Together
+.deeplus {
+  background-image: radial-gradient($blue-gray, $blue-dark);
+  height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.deeplus__container {
+  perspective: 1em;
+  position: relative;
+  transition: transform 0.35s ease-in-out;
+  transform: translate3d(0, 0, 0);
+}

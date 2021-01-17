@@ -1,0 +1,19 @@
+.collection {
+  margin: 5vh 5vw;
+  position: relative;
+}
+
+.collection__container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-left: -5vw;
+  position: relative;
+  transition: transform 0.5s ease-in-out;
+  transform: translate3d(0, 0, 0);
+  width: 100vw;
+}
+
+.collection__header {
+  margin-bottom: px-to-em(16);
+}
