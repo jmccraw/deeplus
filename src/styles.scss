@@ -1,5 +1,6 @@
 // Resets, vars, mixins
 @import './styles/functions';
+@import './styles/fonts';
 @import './styles/vars';
 @import './styles/reset';
 @import './styles/overrides';
@@ -13,3 +14,5 @@
 
 // Containers
 @import './containers/main/main';
+@import './containers/collection/collection';
+@import './containers/item/item';
